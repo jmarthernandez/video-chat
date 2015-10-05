@@ -1,0 +1,20 @@
+{
+  "name": "video-chat",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "author": "Justin Hernandez <jmarthernandez@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^1.7.1"
+  },
+  "dependencies": {
+    "browserify-middleware": "^7.0.0",
+    "express": "^4.13.3",
+    "simple-peer": "^5.11.4"
+  }
+}
