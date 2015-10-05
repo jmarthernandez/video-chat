@@ -12,3 +12,7 @@ Take your id and send it to the other client and have them paste it in connect.
 Take their id and paste it into connect.
 
 `Chat like a human`
+
+[jmart-video.herokuapp.com](jmart-video.herokuapp.com)
+
+The steps to get it working are annoying but soon to be fixed
