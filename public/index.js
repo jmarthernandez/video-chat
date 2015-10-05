@@ -1,5 +1,15 @@
 var Peer = require('simple-peer')
-navigator.webkitGetUserMedia({ video: true, audio: true }, function (stream) {
+navigator.getUserMedia = navigator.getUserMedia ||
+  navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+navigator.getUserMedia({ video: true, audio: true }, function (stream) {
+  function createMessage (text, className) {
+    var message = document.createElement('div')
+    message.textContent = text
+    message.setAttribute('class', className)
+    return message
+  }
+
   var peer = new Peer({
     initiator: location.hash === '#init',
     trickle: false,
@@ -7,7 +17,6 @@ navigator.webkitGetUserMedia({ video: true, audio: true }, function (stream) {
   })
 
   peer.on('signal', function (data) {
-    console.log(data)
     document.getElementById('yourId').value = JSON.stringify(data)
   })
 
@@ -17,18 +26,21 @@ navigator.webkitGetUserMedia({ video: true, audio: true }, function (stream) {
   })
 
   document.getElementById('send').addEventListener('click', function () {
-    var yourMessage = document.getElementById('yourMessage').value
-    peer.send(yourMessage)
+    var text = document.getElementById('yourMessage').value
+    var outgoing = createMessage(text, 'outgoing')
+    outgoing.setAttribute('class', 'right-align')
+    document.getElementById('messages').appendChild(outgoing)
+    peer.send(outgoing.textContent)
   })
 
   peer.on('data', function (data) {
-    document.getElementById('messages').textContent += data + '\n'
+    var incoming = createMessage(data, 'incoming')
+    incoming.setAttribute('class', 'left-align')
+    document.getElementById('messages').appendChild(incoming)
   })
 
   peer.on('stream', function (stream) {
-    var video = document.createElement('video')
-    document.body.appendChild(video)
-
+    var video = document.getElementById('video')
     video.src = window.URL.createObjectURL(stream)
     video.play()
   })

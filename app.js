@@ -13,5 +13,5 @@ app.get('/js/app-bundle.js',
 
 app.use(express.static(__dirname + '/public'));
 
-console.log('listening on port: ' + process.env.PORT || 5000);
+console.log('listening on port: ' + (process.env.PORT || 5000));
 app.listen(process.env.PORT || 5000);
